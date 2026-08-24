@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>About the data — YourUni</title>
+<meta name="description" content="Where the numbers come from, how admission chances are calculated, and what happens to what you type.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234B3FD0'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='Georgia,serif' fill='white'>Y</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<script>
+  try { const t = localStorage.getItem('youruni.theme');
+        if (t && t !== 'system') document.documentElement.setAttribute('data-theme', t); } catch {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"></header>
+
+<main id="main" class="section--tight">
+  <div class="container" style="max-width:820px">
+
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">About</span>
+        <h2>What this site knows, and what it doesn't</h2>
+        <p>A tool that estimates your future is only useful if it is honest about its limits.
+           Here are ours.</p>
+      </div>
+    </div>
+
+    <div class="stat-grid" data-stats style="margin-bottom:var(--sp-7)"></div>
+
+    <div class="stack-lg">
+
+      <section class="card">
+        <h3 style="font-size:var(--step-2);margin-bottom:var(--sp-3)">Where the numbers come from</h3>
+        <p class="muted">Every figure is compiled by hand from public sources: university admissions
+           pages, published fee schedules, national statistics offices and the major ranking bodies.
+           They are approximations, and they age.</p>
+        <ul class="doc-list" style="margin-top:var(--sp-4)">
+          <li>✱<span><b>Rankings</b> are a composite position across the major world rankings rather
+            than any single table. Different rankings disagree substantially — treat a difference of
+            twenty places as noise.</span></li>
+          <li>✱<span><b>Acceptance rates</b> are the most recent published overall rate. Where a
+            university publishes a separate international rate, we store both, and the chance model
+            uses the international one. Rates for a specific course are often far lower than the
+            university-wide figure — computer science almost everywhere is the clearest example.</span></li>
+          <li>✱<span><b>Tuition and living costs</b> are annual, in local currency, for an
+            international undergraduate. Living costs are a mid-range estimate for that city, not a
+            frugal one. Cross-border comparisons convert at indicative rates you can update in
+            <code>data/reference/currencies.js</code>.</span></li>
+          <li>✱<span><b>Entry requirements</b> are the typical published offer, not the minimum a
+            university has ever accepted.</span></li>
+          <li>✱<span><b>Quality-of-life scores</b> are our own composite of six measures for the city,
+            weighted towards what matters to a student: safety, affordability, getting around,
+            culture, nature access and student life.</span></li>
+        </ul>
+        <div class="disclaimer" style="margin-top:var(--sp-5)">
+          <span>⚠</span>
+          <span>Always confirm fees, deadlines and requirements on the university's own website
+          before you rely on them. Nothing here is an offer, and nothing here is advice.</span>
+        </div>
+      </section>
+
+      <section class="card" id="method">
+        <h3 style="font-size:var(--step-2);margin-bottom:var(--sp-3)">How admission chances are calculated</h3>
+        <p class="muted">The estimate starts from the university's published acceptance rate and moves
+           it based on how you compare to what they ask for. In log-odds terms:</p>
+
+        <ol class="stack" style="margin:var(--sp-4) 0;padding-left:1.2rem;color:var(--ink-2);font-size:.93rem">
+          <li><b>Your grades against theirs.</b> Every grading system is converted onto one shared
+            0–100 academic index. The distance between your index and the university's requirement is
+            the single biggest input, and falling short costs more than exceeding it gains.</li>
+          <li><b>Test scores</b>, but only where the university actually reads them. UC Berkeley does
+            not consider the SAT at all, so a 1600 changes nothing there.</li>
+          <li><b>Activities, weighted by country.</b> A US committee reads your whole application;
+            a German numerus clausus place is allocated by Abitur grade. The same activity record is
+            multiplied by a per-country weight between 0.1 and 1.0.</li>
+          <li><b>Subject fit.</b> Applying to one of a university's strongest departments helps a
+            little; applying for something they barely teach hurts.</li>
+          <li><b>English proficiency as a gate.</b> Falling below the stated minimum is heavily
+            penalised because those applications are usually rejected before they are read.
+            Exceeding it adds nothing.</li>
+        </ol>
+
+        <p class="muted">"What would help most" is not a guess either — the model is re-run with each
+           change applied and reports the actual difference in the resulting probability.</p>
+
+        <div class="callout" style="margin-top:var(--sp-5)">
+          <h3 style="font-size:1rem">What it cannot see</h3>
+          <p>Your essays, your references, your interview, whether the university needs a bassoonist
+             this year, or whether a department quietly halved its intake. Treat the number as a way
+             to sort a hundred universities into "realistic" and "not" — which it does well — rather
+             than a prediction about you specifically.</p>
+        </div>
+      </section>
+
+      <section class="card" id="privacy">
+        <h3 style="font-size:var(--step-2);margin-bottom:var(--sp-3)">Privacy</h3>
+        <p class="muted">There is no account, no login and no server that stores anything about you.</p>
+        <ul class="doc-list" style="margin-top:var(--sp-4)">
+          <li>✓<span>Your grades, subjects, activities, shortlist and comparison are written to
+            <b>localStorage in your own browser</b> under the key <code>youruni.profile.v1</code>.</span></li>
+          <li>✓<span>Nothing is transmitted anywhere. The site is static files — there is no backend
+            to send data to.</span></li>
+          <li>✓<span>No analytics, no cookies, no third-party trackers. The only external request the
+            site makes is to Google Fonts for its two typefaces.</span></li>
+          <li>✓<span><b>Erase everything</b> on the profile page clears it permanently, as does
+            clearing your browser's site data.</span></li>
+        </ul>
+        <p class="small dim" style="margin-top:var(--sp-4)">
+          This matters more than usual here because the people using this site are often under 18.
+          The simplest way to protect that data is not to collect it.
+        </p>
+      </section>
+
+      <section class="card">
+        <h3 style="font-size:var(--step-2);margin-bottom:var(--sp-3)">Accessibility and design</h3>
+        <p class="muted">Charts never use colour alone — every admission band carries an icon and a
+           written label, cost breakdowns ship a table view, and the categorical palette is validated
+           for protanopia and deuteranopia separation rather than picked by eye. The site works in
+           light and dark, follows your system setting by default, and respects reduced-motion.</p>
+      </section>
+
+      <section class="card">
+        <h3 style="font-size:var(--step-2);margin-bottom:var(--sp-3)">Adding or correcting data</h3>
+        <p class="muted">All data lives in plain JavaScript files under <code>/data</code>, split by
+           region so they stay editable. Adding a university means appending an object to a regional
+           file; adding a whole grading system means appending its conversion anchors. Run
+           <code>npm run validate</code> and it will tell you what is wrong before anything reaches
+           the page.</p>
+        <p class="small dim" style="margin-top:var(--sp-3)">
+          Found something out of date? The fix belongs in the data file, not the code.
+        </p>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"></footer>
+<script type="module">
+  import { initChrome } from './assets/js/lib/ui.js';
+  import { universities, activeCountries, scholarships, fields } from './assets/js/lib/data.js';
+  import { gradeSystems } from './assets/js/lib/grades.js';
+  import { stat } from './assets/js/lib/charts.js';
+  import { number } from './assets/js/lib/format.js';
+
+  initChrome({ current: 'about.html' });
+
+  document.querySelector('[data-stats]').innerHTML = [
+    stat('Universities', number(universities.length), 'Across every inhabited continent'),
+    stat('Countries', number(activeCountries.length), 'With full study and visa context'),
+    stat('Scholarships', number(scholarships.length), 'Government and university awards'),
+    stat('Grading systems', number(gradeSystems.length), 'All convertible to each other'),
+    stat('Fields of study', number(fields.length), 'With entry subjects and outcomes'),
+    stat('Cost of using it', 'Free', 'No account, no tracking')
+  ].join('');
+</script>
+</body>
+</html>

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Scholarships — YourUni</title>
+<meta name="description" content="124 scholarships for international students — government programmes and university awards, filtered by what you can actually apply for.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234B3FD0'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='Georgia,serif' fill='white'>Y</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<script>
+  try { const t = localStorage.getItem('youruni.theme');
+        if (t && t !== 'system') document.documentElement.setAttribute('data-theme', t); } catch {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"></header>
+
+<main id="main" class="section--tight">
+  <div class="container container--wide">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Scholarships</span>
+        <h2 data-title>Money you can actually apply for</h2>
+        <p>Government programmes and university awards. Where an award has an academic bar,
+           we check it against your grades rather than making you guess.</p>
+      </div>
+    </div>
+
+    <div class="explore">
+      <aside class="filters" id="filters" aria-label="Filters">
+        <div class="filters__close row row--between">
+          <strong>Filters</strong>
+          <button class="btn btn--ghost btn--sm" type="button" data-close-filters>Done</button>
+        </div>
+
+        <div class="filter-group">
+          <div class="search-input">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="input" type="search" data-filter="q" placeholder="Search scholarships" aria-label="Search scholarships">
+          </div>
+        </div>
+
+        <div class="filter-group" data-eligible-group hidden>
+          <div class="switch-row">
+            <span style="font-size:.85rem;font-weight:600">Only ones I qualify for</span>
+            <label class="switch">
+              <input type="checkbox" data-filter="eligible" aria-label="Only show scholarships I qualify for">
+              <span class="switch__track"></span>
+            </label>
+          </div>
+          <p class="small dim" style="margin-top:.2rem" data-eligible-hint></p>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-group__head" style="cursor:default">Coverage</span>
+          <div class="filter-group__body">
+            <label class="checkbox-row"><input type="checkbox" data-multi="coverage" value="full"><span>Full ride</span></label>
+            <label class="checkbox-row"><input type="checkbox" data-multi="coverage" value="partial"><span>Partial</span></label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-group__head" style="cursor:default">Awarded on</span>
+          <div class="filter-group__body">
+            <label class="checkbox-row"><input type="checkbox" data-multi="type" value="merit"><span>Academic merit</span></label>
+            <label class="checkbox-row"><input type="checkbox" data-multi="type" value="need"><span>Financial need</span></label>
+            <label class="checkbox-row"><input type="checkbox" data-multi="type" value="need-and-merit"><span>Both together</span></label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-group__head" style="cursor:default">Level</span>
+          <div class="filter-group__body">
+            <label class="checkbox-row"><input type="checkbox" data-multi="level" value="bachelor"><span>Bachelor's</span></label>
+            <label class="checkbox-row"><input type="checkbox" data-multi="level" value="master"><span>Master's</span></label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <span class="filter-group__head" style="cursor:default">Country</span>
+          <div class="filter-group__body"><div class="filter-scroll" data-country-filters></div></div>
+        </div>
+
+        <div class="filter-group">
+          <button class="btn btn--ghost btn--sm btn--block" type="button" data-reset>Clear all filters</button>
+        </div>
+      </aside>
+
+      <div>
+        <div class="filters-bar">
+          <button class="btn btn--secondary btn--sm mobile-filter-btn" type="button" data-open-filters>Filters</button>
+          <span class="grow small muted" data-count aria-live="polite"></span>
+        </div>
+        <div class="stack" data-results></div>
+        <div data-empty hidden></div>
+      </div>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"></footer>
+<script type="module" src="assets/js/pages/scholarships.js"></script>
+</body>
+</html>

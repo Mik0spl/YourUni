@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Explore universities — YourUni</title>
+<meta name="description" content="Search 116 universities worldwide. Filter by country, subject, cost, acceptance rate and quality of life.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234B3FD0'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='Georgia,serif' fill='white'>Y</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<script>
+  try { const t = localStorage.getItem('youruni.theme');
+        if (t && t !== 'system') document.documentElement.setAttribute('data-theme', t); } catch {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"></header>
+
+<main id="main" class="section--tight">
+  <div class="container container--wide">
+
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Explore</span>
+        <h2 data-title>All universities</h2>
+        <p data-subtitle>Filter by what actually decides your decision — cost, subject, entry
+           requirements, acceptance rate and what life there is like.</p>
+      </div>
+      <a class="btn btn--secondary btn--sm" href="compare.html">
+        Compare <span class="chip chip--brand" data-compare-count hidden></span>
+      </a>
+    </div>
+
+    <div class="explore">
+
+      <!-- ------------------------------------------------------- filters -->
+      <aside class="filters" id="filters" aria-label="Filters">
+        <div class="filters__close row row--between">
+          <strong>Filters</strong>
+          <button class="btn btn--ghost btn--sm" type="button" data-close-filters>Done</button>
+        </div>
+
+        <div class="filter-group">
+          <div class="search-input">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="input" type="search" data-filter="q" placeholder="University, city, subject" aria-label="Search">
+          </div>
+        </div>
+
+        <div class="filter-group" data-profile-filter hidden>
+          <div class="switch-row">
+            <span style="font-size:.85rem;font-weight:600">Only where I'm competitive</span>
+            <label class="switch">
+              <input type="checkbox" data-filter="inRange" aria-label="Only show universities where I am competitive">
+              <span class="switch__track"></span>
+            </label>
+          </div>
+          <p class="small dim" style="margin-top:.2rem">Hides anything below a 12% estimated chance.</p>
+        </div>
+
+        <div class="filter-group">
+          <button class="filter-group__head" type="button" aria-expanded="true" data-accordion>
+            Subject <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </button>
+          <div class="filter-group__body"><div class="filter-scroll" data-field-filters></div></div>
+        </div>
+
+        <div class="filter-group" id="countries">
+          <button class="filter-group__head" type="button" aria-expanded="true" data-accordion>
+            Country <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </button>
+          <div class="filter-group__body"><div class="filter-scroll" data-country-filters></div></div>
+        </div>
+
+        <div class="filter-group">
+          <button class="filter-group__head" type="button" aria-expanded="true" data-accordion>
+            Total cost a year <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </button>
+          <div class="filter-group__body">
+            <input class="range" type="range" data-filter="maxCost" min="0" step="2500" aria-label="Maximum total cost per year">
+            <div class="row row--between small muted"><span>$0</span><span data-cost-label></span></div>
+            <label class="checkbox-row"><input type="checkbox" data-filter="freeTuition"><span>Tuition-free only</span></label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <button class="filter-group__head" type="button" aria-expanded="true" data-accordion>
+            Selectivity <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </button>
+          <div class="filter-group__body">
+            <label class="field" style="margin-bottom:.6rem">
+              <span class="field__label">Minimum acceptance rate</span>
+              <input class="range" type="range" data-filter="minAcceptance" min="0" max="90" step="5" aria-label="Minimum acceptance rate">
+              <span class="field__hint" data-acceptance-label></span>
+            </label>
+            <label class="field">
+              <span class="field__label">World ranking better than</span>
+              <input class="range" type="range" data-filter="maxRank" min="10" max="600" step="10" aria-label="Maximum world ranking">
+              <span class="field__hint" data-rank-label></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <button class="filter-group__head" type="button" aria-expanded="true" data-accordion>
+            Teaching &amp; life <span aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m6 9 6 6 6-6"/></svg></span>
+          </button>
+          <div class="filter-group__body">
+            <label class="checkbox-row"><input type="checkbox" data-filter="english"><span>Taught in English</span></label>
+            <label class="checkbox-row"><input type="checkbox" data-filter="public"><span>Public universities only</span></label>
+            <label class="field" style="margin-top:.6rem">
+              <span class="field__label">Minimum quality of life</span>
+              <input class="range" type="range" data-filter="minQol" min="0" max="90" step="5" aria-label="Minimum quality of life score">
+              <span class="field__hint" data-qol-label></span>
+            </label>
+          </div>
+        </div>
+
+        <div class="filter-group">
+          <button class="btn btn--ghost btn--sm btn--block" type="button" data-reset>Clear all filters</button>
+        </div>
+      </aside>
+
+      <!-- ------------------------------------------------------- results -->
+      <div>
+        <div class="filters-bar">
+          <button class="btn btn--secondary btn--sm mobile-filter-btn" type="button" data-open-filters>
+            Filters <span class="chip chip--brand" data-filter-count hidden></span>
+          </button>
+          <span class="grow small muted" data-count aria-live="polite"></span>
+          <label class="row" style="gap:.5rem">
+            <span class="small muted nowrap">Sort by</span>
+            <select class="select" data-sort style="width:auto">
+              <option value="rank">World ranking</option>
+              <option value="chance">My chance of an offer</option>
+              <option value="cost">Total cost, cheapest first</option>
+              <option value="acceptance">Acceptance rate, highest first</option>
+              <option value="qol">Quality of life</option>
+              <option value="intl">Share of international students</option>
+            </select>
+          </label>
+        </div>
+
+        <div class="active-filters" data-active-filters></div>
+        <div class="grid grid--3" data-results></div>
+        <div data-empty hidden></div>
+      </div>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"></footer>
+<script type="module" src="assets/js/pages/explore.js"></script>
+</body>
+</html>

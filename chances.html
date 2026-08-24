@@ -1,0 +1,88 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your chances — YourUni</title>
+<meta name="description" content="Every university sorted into likely, target and reach for your grades — plus exactly what would move your odds most.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234B3FD0'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='Georgia,serif' fill='white'>Y</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<script>
+  try { const t = localStorage.getItem('youruni.theme');
+        if (t && t !== 'system') document.documentElement.setAttribute('data-theme', t); } catch {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"></header>
+
+<main id="main" class="section--tight">
+  <div class="container container--wide">
+    <div data-empty-state hidden></div>
+    <div data-content hidden>
+
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Your chances</span>
+          <h2>Where you actually stand</h2>
+          <p data-profile-line></p>
+        </div>
+        <div class="row row--wrap">
+          <label class="row" style="gap:.5rem">
+            <span class="small muted nowrap">Show</span>
+            <select class="select" data-scope style="width:auto">
+              <option value="all">All universities</option>
+              <option value="fields">Only my subjects</option>
+              <option value="countries">Only my countries</option>
+              <option value="budget">Only inside my budget</option>
+              <option value="shortlist">My shortlist</option>
+            </select>
+          </label>
+          <a class="btn btn--secondary btn--sm" href="profile.html">Edit profile</a>
+        </div>
+      </div>
+
+      <div class="stat-grid" data-overview style="margin-bottom:var(--sp-6)"></div>
+
+      <div class="card" style="margin-bottom:var(--sp-7)" data-balance></div>
+
+      <div data-buckets></div>
+
+      <!-- ------------------------------------------------- improve section -->
+      <section id="improve" class="section--tight">
+        <div class="sec-head">
+          <div>
+            <span class="eyebrow">Improve your odds</span>
+            <h2>What would actually move the needle</h2>
+            <p>Measured, not guessed: we re-run the model with each change applied and report
+               the average shift across the universities you are aiming at.</p>
+          </div>
+        </div>
+        <div class="grid grid--2" data-levers style="margin-bottom:var(--sp-6)"></div>
+
+        <div class="card" data-culture style="margin-bottom:var(--sp-6)"></div>
+
+        <div class="sec-head">
+          <div>
+            <h3 style="font-family:var(--font-display);font-weight:400;font-size:var(--step-2)">
+              Activities, ranked by what they are actually worth</h3>
+            <p>Weighted for the subjects you picked. Anything you have already recorded is marked.</p>
+          </div>
+        </div>
+        <div class="stack" data-activity-guide></div>
+      </section>
+
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"></footer>
+<script type="module" src="assets/js/pages/chances.js"></script>
+</body>
+</html>

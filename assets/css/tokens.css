@@ -1,0 +1,241 @@
+/* ==========================================================================
+   YourUni — design tokens
+   Light = warm paper. Dark = deep ink. Every colour is defined on :root first,
+   then re-declared for OS-dark and for the explicit [data-theme] stamp so the
+   in-page toggle wins in both directions.
+   ========================================================================== */
+
+:root {
+  color-scheme: light;
+
+  /* --- Surfaces & ink ---------------------------------------------------- */
+  --page:            #F7F5F1;
+  --page-alt:        #F1EEE8;
+  --surface:         #FFFFFF;
+  --surface-2:       #FBF9F6;
+  --surface-3:       #F3F0EA;
+  --surface-inverse: #16151F;
+
+  --ink:             #16151F;
+  --ink-2:           #5C596B;
+  --ink-3:           #8C8899;
+  --ink-on-brand:    #FFFFFF;
+  --ink-on-dark:     #F5F3FA;
+
+  --hairline:        rgba(22, 21, 31, 0.09);
+  --hairline-strong: rgba(22, 21, 31, 0.16);
+  --overlay:         rgba(22, 21, 31, 0.45);
+
+  /* --- Brand ------------------------------------------------------------- */
+  --brand:           #4B3FD0;
+  --brand-hover:     #3D32B8;
+  --brand-press:     #33299B;
+  --brand-ink:       #3B31A8;   /* brand as readable text on light surfaces */
+  --brand-wash:      #EFEDFC;
+  --brand-wash-2:    #E2DEFA;
+  --brand-ring:      rgba(75, 63, 208, 0.35);
+
+  --accent:          #C2582A;   /* terracotta, used sparingly for emphasis */
+  --accent-wash:     #FBEDE5;
+
+  /* --- Data: categorical (validated, see data/README.md) ------------------ */
+  --series-1:        #2a78d6;   /* blue    */
+  --series-2:        #eb6834;   /* orange  */
+  --series-3:        #1baf7a;   /* aqua    */
+  --series-4:        #eda100;   /* yellow  */
+
+  /* --- Data: sequential blue ramp ---------------------------------------- */
+  --seq-100:         #cde2fb;
+  --seq-200:         #9ec5f4;
+  --seq-300:         #6da7ec;
+  --seq-400:         #3987e5;
+  --seq-500:         #256abf;
+  --seq-600:         #184f95;
+  --seq-700:         #0d366b;
+
+  /* --- Data: status (fixed, never themed) -------------------------------- */
+  --status-good:     #0ca30c;
+  --status-warning:  #fab219;
+  --status-serious:  #ec835a;
+  --status-critical: #d03b3b;
+  --status-good-wash:     rgba(12, 163, 12, 0.12);
+  --status-warning-wash:  rgba(250, 178, 25, 0.16);
+  --status-serious-wash:  rgba(236, 131, 90, 0.16);
+  --status-critical-wash: rgba(208, 59, 59, 0.12);
+  /* Readable text versions of the status hues on a light surface */
+  --status-good-ink:     #0a6b0a;
+  --status-warning-ink:  #8A6000;
+  --status-serious-ink:  #A64A22;
+  --status-critical-ink: #B02B2B;
+
+  /* --- Chart chrome ------------------------------------------------------ */
+  --grid:            #E6E2DA;
+  --axis:            #C8C3B9;
+  --track:           #EDEAE3;
+  --de-emphasis:     #BDB8AE;
+
+  /* --- Elevation --------------------------------------------------------- */
+  --shadow-sm: 0 1px 2px rgba(22, 21, 31, 0.05), 0 1px 3px rgba(22, 21, 31, 0.04);
+  --shadow-md: 0 2px 4px rgba(22, 21, 31, 0.04), 0 8px 20px rgba(22, 21, 31, 0.07);
+  --shadow-lg: 0 4px 8px rgba(22, 21, 31, 0.05), 0 20px 48px rgba(22, 21, 31, 0.11);
+  --shadow-brand: 0 6px 20px rgba(75, 63, 208, 0.24);
+
+  /* --- Type -------------------------------------------------------------- */
+  --font-sans: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  --font-display: "Instrument Serif", Georgia, "Times New Roman", serif;
+  --font-mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, monospace;
+
+  --step--1: clamp(0.78rem, 0.76rem + 0.08vw, 0.82rem);
+  --step-0:  clamp(0.9375rem, 0.92rem + 0.1vw, 1rem);
+  --step-1:  clamp(1.06rem, 1.02rem + 0.2vw, 1.19rem);
+  --step-2:  clamp(1.28rem, 1.2rem + 0.4vw, 1.55rem);
+  --step-3:  clamp(1.6rem, 1.44rem + 0.75vw, 2.1rem);
+  --step-4:  clamp(2rem, 1.7rem + 1.4vw, 3rem);
+  --step-5:  clamp(2.6rem, 2rem + 2.8vw, 4.4rem);
+
+  /* --- Space & shape ----------------------------------------------------- */
+  --sp-1: 0.25rem;  --sp-2: 0.5rem;   --sp-3: 0.75rem;  --sp-4: 1rem;
+  --sp-5: 1.5rem;   --sp-6: 2rem;     --sp-7: 3rem;     --sp-8: 4rem;
+  --sp-9: 6rem;
+
+  --r-sm: 8px;  --r-md: 12px;  --r-lg: 18px;  --r-xl: 26px;  --r-pill: 999px;
+
+  --container: 1180px;
+  --container-wide: 1360px;
+  --header-h: 64px;
+
+  --ease: cubic-bezier(0.32, 0.72, 0, 1);
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ---------- Dark: OS preference (loses to an explicit light stamp) -------- */
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    color-scheme: dark;
+
+    --page:            #0E0D14;
+    --page-alt:        #131220;
+    --surface:         #1D1B29;
+    --surface-2:       #232134;
+    --surface-3:       #2B2840;
+    --surface-inverse: #F5F3FA;
+
+    --ink:             #F5F3FA;
+    --ink-2:           #B4AFC4;
+    --ink-3:           #8B87A0;
+    --ink-on-brand:    #0E0D14;
+    --ink-on-dark:     #16151F;
+
+    --hairline:        rgba(255, 255, 255, 0.10);
+    --hairline-strong: rgba(255, 255, 255, 0.18);
+    --overlay:         rgba(5, 5, 9, 0.66);
+
+    --brand:           #9A90F5;
+    --brand-hover:     #ADA5F8;
+    --brand-press:     #C0B9FA;
+    --brand-ink:       #B3ABF8;
+    --brand-wash:      #262340;
+    --brand-wash-2:    #302C50;
+    --brand-ring:      rgba(154, 144, 245, 0.45);
+
+    --accent:          #E8875A;
+    --accent-wash:     #37241C;
+
+    --series-1:        #3987e5;
+    --series-2:        #d95926;
+    --series-3:        #199e70;
+    --series-4:        #c98500;
+
+    --seq-100:         #0d366b;
+    --seq-200:         #184f95;
+    --seq-300:         #256abf;
+    --seq-400:         #3987e5;
+    --seq-500:         #5598e7;
+    --seq-600:         #86b6ef;
+    --seq-700:         #cde2fb;
+
+    --status-good-wash:     rgba(12, 163, 12, 0.20);
+    --status-warning-wash:  rgba(250, 178, 25, 0.20);
+    --status-serious-wash:  rgba(236, 131, 90, 0.20);
+    --status-critical-wash: rgba(208, 59, 59, 0.22);
+    --status-good-ink:     #4FCB4F;
+    --status-warning-ink:  #FBC44A;
+    --status-serious-ink:  #F09E77;
+    --status-critical-ink: #EE7070;
+
+    --grid:            #2A2739;
+    --axis:            #3A3650;
+    --track:           #2A2739;
+    --de-emphasis:     #55506B;
+
+    --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+    --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.4), 0 10px 28px rgba(0, 0, 0, 0.42);
+    --shadow-lg: 0 6px 14px rgba(0, 0, 0, 0.44), 0 26px 60px rgba(0, 0, 0, 0.5);
+    --shadow-brand: 0 6px 22px rgba(154, 144, 245, 0.26);
+  }
+}
+
+/* ---------- Dark: explicit stamp (always wins) --------------------------- */
+:root[data-theme="dark"] {
+  color-scheme: dark;
+
+  --page:            #0E0D14;
+  --page-alt:        #131220;
+  --surface:         #1D1B29;
+  --surface-2:       #232134;
+  --surface-3:       #2B2840;
+  --surface-inverse: #F5F3FA;
+
+  --ink:             #F5F3FA;
+  --ink-2:           #B4AFC4;
+  --ink-3:           #8B87A0;
+  --ink-on-brand:    #0E0D14;
+  --ink-on-dark:     #16151F;
+
+  --hairline:        rgba(255, 255, 255, 0.10);
+  --hairline-strong: rgba(255, 255, 255, 0.18);
+  --overlay:         rgba(5, 5, 9, 0.66);
+
+  --brand:           #9A90F5;
+  --brand-hover:     #ADA5F8;
+  --brand-press:     #C0B9FA;
+  --brand-ink:       #B3ABF8;
+  --brand-wash:      #262340;
+  --brand-wash-2:    #302C50;
+  --brand-ring:      rgba(154, 144, 245, 0.45);
+
+  --accent:          #E8875A;
+  --accent-wash:     #37241C;
+
+  --series-1:        #3987e5;
+  --series-2:        #d95926;
+  --series-3:        #199e70;
+  --series-4:        #c98500;
+
+  --seq-100:         #0d366b;
+  --seq-200:         #184f95;
+  --seq-300:         #256abf;
+  --seq-400:         #3987e5;
+  --seq-500:         #5598e7;
+  --seq-600:         #86b6ef;
+  --seq-700:         #cde2fb;
+
+  --status-good-wash:     rgba(12, 163, 12, 0.20);
+  --status-warning-wash:  rgba(250, 178, 25, 0.20);
+  --status-serious-wash:  rgba(236, 131, 90, 0.20);
+  --status-critical-wash: rgba(208, 59, 59, 0.22);
+  --status-good-ink:     #4FCB4F;
+  --status-warning-ink:  #FBC44A;
+  --status-serious-ink:  #F09E77;
+  --status-critical-ink: #EE7070;
+
+  --grid:            #2A2739;
+  --axis:            #3A3650;
+  --track:           #2A2739;
+  --de-emphasis:     #55506B;
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.4);
+  --shadow-md: 0 2px 6px rgba(0, 0, 0, 0.4), 0 10px 28px rgba(0, 0, 0, 0.42);
+  --shadow-lg: 0 6px 14px rgba(0, 0, 0, 0.44), 0 26px 60px rgba(0, 0, 0, 0.5);
+  --shadow-brand: 0 6px 22px rgba(154, 144, 245, 0.26);
+}

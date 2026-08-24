@@ -1,0 +1,173 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your profile — YourUni</title>
+<meta name="description" content="Enter your grades, tests and interests once. Everything stays in your browser — no account, no upload.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234B3FD0'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='Georgia,serif' fill='white'>Y</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<script>
+  try { const t = localStorage.getItem('youruni.theme');
+        if (t && t !== 'system') document.documentElement.setAttribute('data-theme', t); } catch {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"></header>
+
+<main id="main" class="section--tight">
+  <div class="container">
+
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Your profile</span>
+        <h2>Tell us where you stand</h2>
+        <p>Everything here stays on this device. There is no account, nothing is uploaded,
+           and you can wipe it at any time.</p>
+      </div>
+    </div>
+
+    <div class="profile-layout">
+      <form class="stack-lg" data-profile-form autocomplete="off">
+
+        <!-- ------------------------------------------------------- grades -->
+        <section class="card">
+          <div class="card__head">
+            <span class="card__title">1. Your grades</span>
+            <span class="small dim">Required</span>
+          </div>
+          <div class="form-grid">
+            <label class="field">
+              <span class="field__label">Grading system</span>
+              <select class="select" data-field="gradeSystem"></select>
+            </label>
+            <label class="field">
+              <span class="field__label">Your result or prediction</span>
+              <span data-grade-input></span>
+              <span class="field__hint" data-grade-hint></span>
+            </label>
+          </div>
+          <div data-conversions style="margin-top:var(--sp-4)"></div>
+        </section>
+
+        <!-- -------------------------------------------------------- tests -->
+        <section class="card">
+          <div class="card__head">
+            <span class="card__title">2. Admissions tests</span>
+            <span class="small dim">Optional — mainly for the US</span>
+          </div>
+          <div class="form-grid">
+            <label class="field">
+              <span class="field__label">SAT total</span>
+              <input class="input" type="number" data-field="tests.sat" min="400" max="1600" step="10" placeholder="1450">
+              <span class="field__hint">Out of 1600. Leave blank if you have not taken it.</span>
+            </label>
+            <label class="field">
+              <span class="field__label">ACT composite</span>
+              <input class="input" type="number" data-field="tests.act" min="1" max="36" step="1" placeholder="33">
+              <span class="field__hint">Out of 36. Universities take whichever is stronger.</span>
+            </label>
+          </div>
+        </section>
+
+        <!-- ------------------------------------------------------ english -->
+        <section class="card">
+          <div class="card__head">
+            <span class="card__title">3. English proficiency</span>
+            <span class="small dim">A hard requirement almost everywhere</span>
+          </div>
+          <div class="switch-row" style="margin-bottom:var(--sp-3)">
+            <span style="font-size:.9rem">I am a native or near-native English speaker</span>
+            <label class="switch">
+              <input type="checkbox" data-field="english.native" aria-label="Native English speaker">
+              <span class="switch__track"></span>
+            </label>
+          </div>
+          <div class="form-grid" data-english-fields>
+            <label class="field">
+              <span class="field__label">Test</span>
+              <select class="select" data-field="english.test"></select>
+            </label>
+            <label class="field">
+              <span class="field__label">Score</span>
+              <input class="input" type="number" data-field="english.score" step="0.5" placeholder="7.0">
+              <span class="field__hint" data-english-hint></span>
+            </label>
+          </div>
+        </section>
+
+        <!-- ------------------------------------------------------- studies -->
+        <section class="card">
+          <div class="card__head">
+            <span class="card__title">4. What do you want to study?</span>
+            <span class="small dim">Pick up to three</span>
+          </div>
+          <div class="uni-card__tags" data-field-chips></div>
+        </section>
+
+        <!-- ------------------------------------------------- money & place -->
+        <section class="card">
+          <div class="card__head"><span class="card__title">5. Money and location</span></div>
+          <div class="stack">
+            <label class="field">
+              <span class="field__label">Your citizenship</span>
+              <select class="select" data-field="citizenship"></select>
+              <span class="field__hint">Decides whether you pay EU rates and which scholarships you can apply for.</span>
+            </label>
+            <label class="field">
+              <span class="field__label">Budget for a full year, everything included</span>
+              <input class="range" type="range" data-field="budget" min="0" max="100000" step="2500" aria-label="Annual budget">
+              <span class="field__hint" data-budget-hint></span>
+            </label>
+            <div class="switch-row">
+              <span style="font-size:.9rem">I will need financial aid or a scholarship</span>
+              <label class="switch">
+                <input type="checkbox" data-field="needsAid" aria-label="Needs financial aid">
+                <span class="switch__track"></span>
+              </label>
+            </div>
+            <div class="field">
+              <span class="field__label">Countries you would consider — leave empty for anywhere</span>
+              <div class="uni-card__tags" data-country-chips></div>
+            </div>
+          </div>
+        </section>
+
+        <!-- ---------------------------------------------------- activities -->
+        <section class="card">
+          <div class="card__head">
+            <span class="card__title">6. What have you done outside class?</span>
+            <span class="small dim">Be honest — this only helps if it is real</span>
+          </div>
+          <p class="small muted" style="margin-bottom:var(--sp-4)">
+            How much these count depends enormously on where you apply. A US committee reads your
+            whole life; a German numerus clausus place is decided by your Abitur grade alone.
+            We weight them per country.
+          </p>
+          <div class="stack" data-activities></div>
+        </section>
+
+        <div class="row row--wrap">
+          <a class="btn btn--primary" href="chances.html">See your chances</a>
+          <a class="btn btn--secondary" href="explore.html">Browse universities</a>
+          <button class="btn btn--ghost" type="button" data-clear-profile>Erase everything</button>
+        </div>
+      </form>
+
+      <!-- ---------------------------------------------------------- side -->
+      <aside class="profile-side stack" data-summary></aside>
+    </div>
+  </div>
+</main>
+
+<footer class="site-footer"></footer>
+<script type="module" src="assets/js/pages/profile.js"></script>
+</body>
+</html>
