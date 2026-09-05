@@ -11,6 +11,7 @@ data/
 ├── validate.mjs                  the checker — run this after every edit
 ├── universities/
 │   ├── index.js                  assembles the regional files into one list
+│   ├── uk-outcomes.js            GENERATED — Discover Uni measured outcomes
 │   ├── united-states.js          18 universities
 │   ├── canada.js                 6
 │   ├── united-kingdom-ireland.js 14
@@ -184,3 +185,53 @@ For letter-grade systems use `kind: 'choice'` with an `options` array of
 `reference/currencies.js` holds indicative rates as "US dollars per unit". They only
 affect cross-border cost comparison, so precision is not critical — but update them
 when they drift far enough to mislead.
+
+
+---
+
+## Generated data and the importers
+
+Two files under `data/` are **generated** and carry a "do not edit by hand" header:
+
+| File | Source | Contents |
+|---|---|---|
+| `universities/uk-outcomes.js` | Discover Uni (HESA / OfS) | Employment, graduate salary, NSS satisfaction, continuation, entry tariff, TEF — per UK university |
+| `reference/country-stats.js` | Eurostat | Graduate employment, NEET rate, early leavers — per country |
+
+They are kept **separate from hand-written records and merged at load time**, so
+re-running an import can never overwrite curated data. A hand-written record and its
+generated outcomes live in different files and are joined by `id` in
+`assets/js/lib/data.js`.
+
+### Regenerating
+
+```bash
+# Discover Uni — download and unzip the dataset first
+node tools/import/discoveruni.mjs <path-to-extracted-csvs> --json uk-institutions.json
+
+# Eurostat — point at a folder of estat_*.tsv.gz files
+node tools/import/eurostat.mjs <path-to-tsv-gz-folder> --json eurostat.json
+
+# Turn both into the generated data files
+node tools/import/generate.mjs eurostat.json uk-institutions.json
+npm run validate
+```
+
+Both importers print a report before writing anything, so the numbers can be checked
+before they become site data.
+
+### What these sources deliberately do not provide
+
+**Acceptance rates.** Discover Uni does not publish them, and they cannot be inferred
+from entry tariff. In the current data LSE and Bristol share a mean tariff of 155 but
+admit 11% and 45% of applicants respectively; Edinburgh has a *higher* tariff than LSE
+and four times the acceptance rate. Across the twelve hand-researched UK universities
+the correlation between mean tariff and acceptance rate is only r = -0.44.
+
+Since acceptance rate is the largest single input to the admission-chance model,
+deriving one from tariff would quietly corrupt the site's core feature. Where a real
+acceptance rate is not available, the honest signal is the **entry tariff distribution** —
+`shareTariff144Plus` and `shareTariff160Plus` record what entrants actually held, which
+tells a student more than an offer does.
+
+**Fees and living costs.** Neither source carries them. These remain hand-researched.

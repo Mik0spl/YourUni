@@ -217,6 +217,8 @@ function overviewPanel(result) {
       </p>
     </div>
 
+    ${outcomesCard()}
+
     <div class="card">
       <div class="card__head"><span class="card__title">Subjects taught here</span></div>
       <div class="uni-card__tags">
@@ -228,6 +230,57 @@ function overviewPanel(result) {
         }).join('')}
       </div>
       <p class="small dim" style="margin-top:.8rem">★ marks the departments this university is best known for.</p>
+    </div>`;
+}
+
+/**
+ * Published outcomes, shown only where we actually have them. Every figure here
+ * is measured and attributed — it is deliberately separated from the site's own
+ * estimates so a student can tell the two apart.
+ */
+function outcomesCard() {
+  const o = uni.outcomes;
+  if (!o) return '';
+
+  const tiles = [];
+  if (o.employmentPct != null)
+    tiles.push(stat('In work or study', `${o.employmentPct}%`, '15 months after graduating'));
+  if (o.medianSalary3yr != null)
+    tiles.push(stat('Median salary', money(o.medianSalary3yr, 'GBP', { compact: true }), '3 years after graduating'));
+  if (o.satisfactionPct != null)
+    tiles.push(stat('Student satisfaction', `${o.satisfactionPct}%`, 'National Student Survey'));
+  if (o.continuationPct != null)
+    tiles.push(stat('Continue to year 2', `${o.continuationPct}%`, 'Retention after first year'));
+  if (o.tef)
+    tiles.push(stat('Teaching quality', esc(o.tef), 'TEF overall rating'));
+  if (o.meanTariff != null)
+    tiles.push(stat('Mean entry tariff', String(o.meanTariff), 'UCAS points of actual entrants'));
+  if (!tiles.length) return '';
+
+  const intake = o.shareTariff144Plus != null ? `
+    <div style="margin-top:var(--sp-5)">
+      <p class="small muted" style="margin-bottom:.7rem">
+        What entrants actually held — more useful than an offer, because it shows the
+        real spread rather than the headline requirement.
+      </p>
+      ${scoreBars([
+        { label: 'AAA or better', value: o.shareTariff144Plus },
+        { label: 'A*A*A or better', value: o.shareTariff160Plus ?? 0 }
+      ])}
+    </div>` : '';
+
+  return `
+    <div class="card">
+      <div class="card__head">
+        <span class="card__title">Published outcomes</span>
+        <span class="chip chip--good">Measured, not estimated</span>
+      </div>
+      <div class="stat-grid">${tiles.join('')}</div>
+      ${intake}
+      <p class="small dim" style="margin-top:var(--sp-4)">
+        Source: ${esc(uni.outcomesSource ?? 'Discover Uni')}. Figures cover UK-domiciled
+        graduates across the whole university, so a specific course may differ.
+      </p>
     </div>`;
 }
 
@@ -407,11 +460,34 @@ function lifePanel(country) {
         ${stat('Student visa', ['—', 'Straightforward', 'Manageable', 'Some effort', 'Demanding', 'Hard'][country?.visaDifficulty ?? 0] ?? '—')}
         ${stat('Safety', (country?.safety ?? '—') + '/100')}
       </div>
+      ${countryStatsBlock(country)}
       <div class="stack" style="margin-top:var(--sp-4)">
         <p class="small muted"><b>Working while studying.</b> ${esc(country?.workDuringStudy ?? '—')}</p>
         <p class="small muted"><b>Staying after graduation.</b> ${esc(country?.postStudyWork ?? '—')}</p>
         <p class="small muted"><b>Healthcare.</b> ${esc(country?.healthcare ?? '—')}</p>
       </div>
+    </div>`;
+}
+
+/** National figures from Eurostat, where the country is covered. */
+function countryStatsBlock(country) {
+  const s = country?.stats;
+  if (!s) return '';
+  const tiles = [];
+  if (s.graduateEmployment != null)
+    tiles.push(stat('Graduate employment', `${s.graduateEmployment}%`, `Nationally, ${s.graduateEmploymentYear}`));
+  if (s.neetRate != null)
+    tiles.push(stat('Young people not working or studying', `${s.neetRate}%`, `Aged 15-29, ${s.neetRateYear}`));
+  if (s.earlyLeavers != null)
+    tiles.push(stat('Leave education early', `${s.earlyLeavers}%`, `Aged 18-24, ${s.earlyLeaversYear}`));
+  if (!tiles.length) return '';
+  return `
+    <div style="margin-top:var(--sp-5)">
+      <h4 style="font-size:.9rem;margin-bottom:.7rem">The national picture</h4>
+      <div class="stat-grid">${tiles.join('')}</div>
+      <p class="small dim" style="margin-top:var(--sp-3)">
+        Source: Eurostat. Country-wide figures, not specific to this university.
+      </p>
     </div>`;
 }
 

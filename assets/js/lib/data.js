@@ -9,7 +9,11 @@ import { countries, countryByCode } from '../../../data/reference/countries.js';
 import { activities, activityById, activityCategories, admissionsCulture, DEFAULT_CULTURE }
   from '../../../data/reference/activities.js';
 import { convert } from '../../../data/reference/currencies.js';
+import { countryStats, COUNTRY_STATS_SOURCE } from '../../../data/reference/country-stats.js';
+import { ukOutcomes, UK_OUTCOMES_SOURCE } from '../../../data/universities/uk-outcomes.js';
 import { requirementIndex, englishRequirementIndex } from './grades.js';
+
+export { COUNTRY_STATS_SOURCE, UK_OUTCOMES_SOURCE };
 
 export { fields, fieldById, countries, countryByCode, activities, activityById, activityCategories };
 
@@ -37,6 +41,8 @@ function qolScore(qol) {
 /** Attach everything derived so the rest of the app never recomputes it. */
 function decorate(u) {
   const country = countryByCode[u.country];
+  // Measured outcomes from Discover Uni, where we have them for this university.
+  const outcomes = ukOutcomes[u.id] ?? null;
   const currency = u.tuition.currency;
   const tuitionIntl = u.tuition.intl ?? 0;
   const tuitionEu = u.tuition.eu ?? tuitionIntl;
@@ -47,7 +53,7 @@ function decorate(u) {
     countryName: country?.name ?? u.country,
     flag: country?.flag ?? '🏳️',
     region: country?.region ?? 'Other',
-    countryInfo: country,
+    countryInfo: country ? { ...country, stats: countryStats[u.country] ?? null } : null,
     currency,
     totalCost: tuitionIntl + living,
     totalCostEu: tuitionEu + living,
@@ -59,6 +65,8 @@ function decorate(u) {
     requiredIndex: requirementIndex(u),
     englishIndex: englishRequirementIndex(u),
     culture: admissionsCulture[u.country] ?? DEFAULT_CULTURE,
+    outcomes,
+    outcomesSource: outcomes ? UK_OUTCOMES_SOURCE : null,
     searchText: [u.name, u.short, u.city, country?.name, ...(u.fields || [])].join(' ').toLowerCase()
   };
 }
@@ -70,6 +78,10 @@ export const scholarships = rawScholarships;
 export const scholarshipById = Object.fromEntries(scholarships.map(s => [s.id, s]));
 
 /** Countries that actually have a university in the dataset, with counts. */
+/** National statistics merged onto the country reference records. */
+export const countriesWithStats = countries.map(c => ({ ...c, stats: countryStats[c.code] ?? null }));
+export const countryStatsByCode = Object.fromEntries(countriesWithStats.map(c => [c.code, c.stats]));
+
 export const activeCountries = (() => {
   const counts = {};
   universities.forEach(u => { counts[u.country] = (counts[u.country] || 0) + 1; });
