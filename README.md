@@ -52,25 +52,41 @@ rules, checked against your profile. "Not eligible" always comes with the reason
 
 ---
 
-## Running it
+## Running it locally
 
-No build step, no dependencies. It does need to be served over HTTP rather than opened
-from the filesystem, because it uses ES modules.
+You need [Node 18 or newer](https://nodejs.org). Nothing else — there are no
+dependencies to install.
 
 ```bash
-npm start          # python3 -m http.server 8777
+git clone https://github.com/Mik0spl/YourUni.git
+cd YourUni
+npm start
 ```
 
-Then open <http://localhost:8777>.
+Then open **<http://localhost:8777>**.
 
-Any static server works: `npx serve`, `php -S localhost:8000`, or the Live Server
-extension in VS Code.
+`npm start` runs a small static server (`tools/serve.mjs`, about 80 lines, no
+dependencies) that works the same on Windows, macOS and Linux. If port 8777 is taken it
+steps up to the next free one and tells you which; `PORT=3000 npm start` picks your own.
+
+**Do not open `index.html` by double-clicking it.** The site is built from ES modules,
+and browsers refuse to load those over `file://` — you get a blank page and a CORS error
+in the console. It has to be served over HTTP, which is all `npm start` does.
+
+Any other static server works too: `npx serve`, `python3 -m http.server 8777`, or the
+Live Server extension in VS Code.
 
 ### Deploying
 
-It's static files, so anywhere works. For GitHub Pages: **Settings → Pages → Deploy from a
-branch**, pick the branch and `/ (root)`. Netlify, Vercel, Cloudflare Pages and S3 all work
-by dropping the folder in — there is nothing to configure.
+It's static files, so anywhere works.
+
+**GitHub Pages** — Settings → Pages → Deploy from a branch → pick the branch and
+`/ (root)`. Note that Pages on a **private** repository requires a paid GitHub plan; on
+the free plan the repository has to be public.
+
+**Netlify, Cloudflare Pages, Vercel** — all deploy private repositories on their free
+tiers. Connect the repo, leave the build command empty, and set the output directory to
+`/`. Nothing needs configuring because there is nothing to build.
 
 ---
 
@@ -117,6 +133,7 @@ profile.html  scholarships.html  compare.html  about.html
 │   └── format.js         currency, percentages, numbers
 │
 ├── assets/js/pages/      one file per page
+├── tools/serve.mjs       the local dev server
 └── data/                 see data/README.md
 ```
 

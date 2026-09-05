@@ -5,10 +5,18 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "start": "python3 -m http.server 8777",
-    "serve": "python3 -m http.server 8777",
+    "start": "node tools/serve.mjs",
+    "serve": "node tools/serve.mjs",
     "validate": "node data/validate.mjs"
   },
-  "keywords": ["universities", "admissions", "scholarships", "study-abroad"],
-  "license": "MIT"
+  "keywords": [
+    "universities",
+    "admissions",
+    "scholarships",
+    "study-abroad"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
 }
