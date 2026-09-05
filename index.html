@@ -1,0 +1,200 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>YourUni — find the universities where you actually stand a chance</title>
+<meta name="description" content="World university rankings, real costs, grade requirements converted to your own system, scholarships you qualify for, and an honest estimate of your admission chances. No account needed.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234B3FD0'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='Georgia,serif' fill='white'>Y</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<script>
+  // Set the theme before first paint so there is no flash of the wrong background.
+  try { const t = localStorage.getItem('youruni.theme');
+        if (t && t !== 'system') document.documentElement.setAttribute('data-theme', t); } catch {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"></header>
+
+<main id="main">
+
+  <!-- ---------------------------------------------------------------- hero -->
+  <section class="hero">
+    <div class="container">
+      <div class="hero__inner">
+        <h1 class="display balance">
+          Find the universities where you <em>actually stand a chance</em>
+        </h1>
+        <p class="lede balance">
+          Rankings, real costs, entry requirements in your own grading system, scholarships you
+          qualify for, and an honest read on your odds. 116 universities in 35 countries.
+        </p>
+
+        <form class="hero-search" action="explore.html" method="get" role="search">
+          <div class="search-input grow">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>
+            <input class="input" type="search" name="q" placeholder="Search a university, city or subject" aria-label="Search universities">
+          </div>
+          <button class="btn btn--primary" type="submit">Search</button>
+        </form>
+
+        <div class="hero-suggest">
+          <a class="chip chip-btn" href="explore.html?field=computer-science">💻 Computer Science</a>
+          <a class="chip chip-btn" href="explore.html?field=medicine">🩺 Medicine</a>
+          <a class="chip chip-btn" href="explore.html?field=business">📈 Business</a>
+          <a class="chip chip-btn" href="explore.html?maxCost=15000">Under $15k a year</a>
+          <a class="chip chip-btn" href="explore.html?freeTuition=1">Tuition-free</a>
+        </div>
+
+        <div class="trust-row" data-trust></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------ grade converter -->
+  <section class="section--tight">
+    <div class="container">
+      <div class="card" style="max-width:880px;margin-inline:auto">
+        <div class="sec-head" style="margin-bottom:var(--sp-4)">
+          <div>
+            <span class="eyebrow">Start here</span>
+            <h2 style="font-size:var(--step-2);margin-top:.35rem">What are your grades worth abroad?</h2>
+            <p>Enter your grades once. We convert them into every system universities publish
+               their requirements in, so you can read an offer from anywhere.</p>
+          </div>
+        </div>
+        <div class="form-grid" style="margin-bottom:var(--sp-4)">
+          <label class="field">
+            <span class="field__label">Your grading system</span>
+            <select class="select" data-conv-system></select>
+          </label>
+          <label class="field">
+            <span class="field__label">Your result</span>
+            <span data-conv-input-host></span>
+            <span class="field__hint" data-conv-hint></span>
+          </label>
+        </div>
+        <div class="conversion-grid" data-conv-output></div>
+        <p class="small dim" style="margin-top:var(--sp-4)">
+          Conversions are indicative — universities apply their own equivalency tables.
+          <a href="profile.html">Save your grades</a> to see which universities are in range.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ----------------------------------------------------------- how it works -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">How it works</span>
+          <h2>Three steps, no sign-up</h2>
+        </div>
+      </div>
+      <div class="steps">
+        <div class="step reveal">
+          <h3>Tell us your grades</h3>
+          <p>Your school system, your results, your tests and what you want to study.
+             It stays in your browser — there is no account and nothing is uploaded.</p>
+        </div>
+        <div class="step reveal">
+          <h3>See where you stand</h3>
+          <p>Every university sorted into likely, target and reach, with the reasoning shown:
+             how far your grades sit from theirs, and what else they weigh.</p>
+        </div>
+        <div class="step reveal">
+          <h3>Work out what to fix</h3>
+          <p>The site measures which change moves your odds most — grades, tests, English,
+             or a specific kind of activity — and by how many points.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ---------------------------------------------------------- your matches -->
+  <section class="section--tight" data-matches-section hidden>
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Based on your profile</span>
+          <h2>Your strongest matches</h2>
+          <p data-matches-sub></p>
+        </div>
+        <a class="btn btn--secondary btn--sm" href="chances.html">See all your chances</a>
+      </div>
+      <div class="grid grid--3" data-matches></div>
+    </div>
+  </section>
+
+  <!-- --------------------------------------------------------------- fields -->
+  <section class="section" id="fields">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">By subject</span>
+          <h2>What do you want to study?</h2>
+          <p>Requirements, strongest departments and career outcomes differ enormously by field.</p>
+        </div>
+      </div>
+      <div class="grid" style="grid-template-columns:repeat(auto-fill,minmax(230px,1fr));gap:var(--sp-3)" data-fields></div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------- top ranked -->
+  <section class="section--tight">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Highest ranked</span>
+          <h2>Highest ranked in the world</h2>
+          <p>Composite of the major world rankings. Prestige is one input among many — cost,
+             location and your actual odds usually matter more.</p>
+        </div>
+        <a class="btn btn--ghost btn--sm" href="explore.html?sort=rank">View all 116</a>
+      </div>
+      <div class="grid grid--3" data-top></div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------- best value -->
+  <section class="section">
+    <div class="container">
+      <div class="sec-head">
+        <div>
+          <span class="eyebrow">Best value</span>
+          <h2>Top-150 universities that cost the least</h2>
+          <p>Ranked by what you would actually pay for a year — tuition plus living — at
+             universities inside the world top 150.</p>
+        </div>
+        <a class="btn btn--ghost btn--sm" href="explore.html?sort=cost">Sort everything by cost</a>
+      </div>
+      <div class="grid grid--3" data-value></div>
+    </div>
+  </section>
+
+  <!-- ------------------------------------------------------------------- cta -->
+  <section class="section--tight">
+    <div class="container">
+      <div class="cta-band reveal">
+        <h2>Stop guessing which universities are realistic</h2>
+        <p>Five minutes of setup gives you a shortlist you can actually act on — with the
+           deadlines, documents and scholarships attached to each one.</p>
+        <a class="btn btn--primary btn--lg" href="profile.html">Build your profile</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer"></footer>
+<script type="module" src="assets/js/pages/home.js"></script>
+</body>
+</html>

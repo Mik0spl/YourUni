@@ -1,0 +1,22 @@
+{
+  "name": "youruni",
+  "version": "1.0.0",
+  "description": "University search built for international students — rankings, real costs, grade conversion, scholarships and honest admission odds.",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "start": "node tools/serve.mjs",
+    "serve": "node tools/serve.mjs",
+    "validate": "node data/validate.mjs"
+  },
+  "keywords": [
+    "universities",
+    "admissions",
+    "scholarships",
+    "study-abroad"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}

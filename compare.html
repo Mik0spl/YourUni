@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Compare universities — YourUni</title>
+<meta name="description" content="Put up to four universities side by side: cost, entry requirements, acceptance rate, deadlines and quality of life.">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='22' fill='%234B3FD0'/><text y='72' x='50' text-anchor='middle' font-size='58' font-family='Georgia,serif' fill='white'>Y</text></svg>">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/tokens.css">
+<link rel="stylesheet" href="assets/css/base.css">
+<link rel="stylesheet" href="assets/css/components.css">
+<link rel="stylesheet" href="assets/css/pages.css">
+<script>
+  try { const t = localStorage.getItem('youruni.theme');
+        if (t && t !== 'system') document.documentElement.setAttribute('data-theme', t); } catch {}
+</script>
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+<header class="site-header"></header>
+
+<main id="main" class="section--tight">
+  <div class="container container--wide">
+    <div class="sec-head">
+      <div>
+        <span class="eyebrow">Compare</span>
+        <h2>Side by side</h2>
+        <p>Up to four at a time. Costs are converted to US dollars so the totals mean something
+           across borders — the local figure is in the tooltip.</p>
+      </div>
+      <label class="row" style="gap:.5rem">
+        <span class="small muted nowrap">Add</span>
+        <select class="select" data-add style="width:auto;max-width:260px"></select>
+      </label>
+    </div>
+
+    <div class="compare-slots" data-slots></div>
+    <div data-table></div>
+    <div data-empty hidden></div>
+  </div>
+</main>
+
+<footer class="site-footer"></footer>
+<script type="module" src="assets/js/pages/compare.js"></script>
+</body>
+</html>

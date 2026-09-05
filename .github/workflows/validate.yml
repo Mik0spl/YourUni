@@ -1,0 +1,33 @@
+name: Validate
+
+on:
+  push:
+    branches: ['**']
+  pull_request:
+
+jobs:
+  validate:
+    name: Data and syntax
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # The project has no dependencies, so there is nothing to install.
+
+      - name: Check every JavaScript file parses
+        run: |
+          fail=0
+          while IFS= read -r file; do
+            if ! node --check "$file" 2>/tmp/err; then
+              echo "::error file=$file::$(head -2 /tmp/err | tr '\n' ' ')"
+              fail=1
+            fi
+          done < <(find data assets -name '*.js' -o -name '*.mjs')
+          exit $fail
+
+      - name: Validate the data files
+        run: npm run validate
